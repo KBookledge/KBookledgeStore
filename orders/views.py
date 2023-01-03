@@ -18,7 +18,7 @@ class OrderView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         book_id = self.kwargs["book_id"]
         book_obj = get_object_or_404(Book, pk=book_id)
-        serializer.save(user=self.request.user, book=book_obj)
+        serializer.save(user=self.request.user, book_id=book_obj)
 
 
 class OrderIdView(generics.RetrieveUpdateDestroyAPIView):
