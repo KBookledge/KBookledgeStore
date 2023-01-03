@@ -163,9 +163,7 @@ REST_FRAMEWORK = {
 }
 
 cloudinary.config( 
-    cloud_name = "", 
-    api_key = "", 
-    api_secret = ""
+    cloud_name = getenv("cloud_name"),
+    api_key = getenv("api_key"), 
+    api_secret = getenv("api_secret")
 )
-
-# getenv("POSTGRES_DB")
