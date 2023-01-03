@@ -18,7 +18,7 @@ class BookCreateViewSerializer(SerializerByMethodMixin, generics.ListCreateAPIVi
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
@@ -31,5 +31,5 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
