@@ -9,6 +9,13 @@ from .models import Author
 from books.models import Book
 from .permissions import IsSuperuser
 
+class AuthorsDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSuperuser, BasePermission]
+    serializer_class = AuthorsSerializer
+
+    queryset = Author.objects.all()-
+
 
 class AuthorsView(ListCreateAPIView, PageNumberPagination):
     authentication_classes = [JWTAuthentication]
