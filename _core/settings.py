@@ -4,6 +4,11 @@ import dotenv
 from os import getenv
 from django.core.management.utils import get_random_secret_key
 
+# cloudinary
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 dotenv.load_dotenv()
 
@@ -34,7 +39,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework"]
+THIRD_PARTY_APPS = ["rest_framework", 'cloudinary']
 
 
 PROJECT_APPS = ["users", "authors", "books"]
@@ -148,3 +153,8 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 5
 }
 
+cloudinary.config( 
+    cloud_name = getenv("cloud_name"),
+    api_key = getenv("api_key"), 
+    api_secret = getenv("api_secret")
+)

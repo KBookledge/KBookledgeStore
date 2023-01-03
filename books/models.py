@@ -1,6 +1,9 @@
 from django.db import models
 import uuid
 
+# cloudinary
+from cloudinary.models import CloudinaryField
+
 # Create your models here.
 
 
@@ -15,5 +18,7 @@ class Book(models.Model):
     author = models.ForeignKey(
         "authors.Author", on_delete=models.CASCADE, related_name="books"
     )
+    discount = models.IntegerField(null=True)
+    picture_url = CloudinaryField('imagem')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
