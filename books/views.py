@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Book
 from .serializers import BookSerializer, BookPostUpdateSerializer
@@ -18,7 +18,7 @@ class BookCreateViewSerializer(SerializerByMethodMixin, generics.ListCreateAPIVi
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
@@ -31,5 +31,5 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
 
