@@ -46,10 +46,16 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework"]
+THIRD_PARTY_APPS = [
+    "rest_framework"
+]
 
-
-PROJECT_APPS = ["users", "authors", "books"]
+PROJECT_APPS = [
+    "users",
+    "authors",
+    "books",
+    "orders",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
