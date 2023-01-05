@@ -6,14 +6,7 @@ from books.models import Book
 class OrderSerializer(serializers.ModelSerialzier):
     class Meta:
         model = Order
-        fields = [
-            "id"
-            "book_id",
-            "user",
-            "amount",
-            "amount_price",
-            "status",
-        ]
+        fields = '__all__'
 
     def create(self, validated_data):
         book_id = validated_data["book_id"]

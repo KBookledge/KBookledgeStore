@@ -20,6 +20,6 @@ class Order(models.Model):
     #     on_delete=models.CASCADE,
     #     related_name="orders",
     # )
-    amount_price = models.DecimalField(decimal_places=2)
-    amount = models.PositiveSmallIntegerField()
+    # amount_price = models.DecimalField(decimal_places=2)
+    # amount = models.PositiveSmallIntegerField()
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
