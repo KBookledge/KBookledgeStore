@@ -9,7 +9,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-
 dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

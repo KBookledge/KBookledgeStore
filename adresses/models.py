@@ -10,7 +10,7 @@ class Address(models.Model):
     neighborhood = models.CharField(max_length=64)
     street_address = models.CharField(max_length=64)
     zip_code = models.CharField(max_length=9)
-    complement = models.CharField(
+    complement = models.TextField(
         blank=True,
         null=True,
     )
