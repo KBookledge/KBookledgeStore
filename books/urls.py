@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
-from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
-    path("books/", views.BookCreateViewSerializer.as_view()),
-    path("books/<str:pk>/", views.BookUpdateDeleteGetView.as_view())
+    path("books/", views.BookCreateView.as_view()),
+    path("books/<str:pk>/", views.BookUpdateDeleteGetView.as_view()),
+    path("category/", views.CategoryCreateView.as_view()),
+    path("category/<str:pk>/", views.CategoryUpdateDeleteGetView.as_view())
 ]
