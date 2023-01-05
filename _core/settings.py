@@ -4,6 +4,11 @@ import dotenv
 from os import getenv
 from django.core.management.utils import get_random_secret_key
 
+# cloudinary
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 dotenv.load_dotenv()
 
@@ -15,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -34,7 +40,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework"]
+THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular", 'cloudinary']
 
 
 PROJECT_APPS = ["users", "authors", "books", "adresses"]
@@ -149,5 +155,18 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
 }
 
+SPECTACULAR_SETTINGS = {
+    "TITLE": "KBOOKLEDGE",
+    "DESCRIPTION": "É uma plataforma de venda de EBooks",
+    "VERSION": "0.0.1",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
+cloudinary.config( 
+    cloud_name = getenv("cloud_name"),
+    api_key = getenv("api_key"), 
+    api_secret = getenv("api_secret")
+)
