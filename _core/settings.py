@@ -37,7 +37,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = ["rest_framework"]
 
 
-PROJECT_APPS = ["users", "authors", "books"]
+PROJECT_APPS = ["users", "authors", "books", "adresses"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
@@ -145,6 +145,9 @@ SIMPLE_JWT = {
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 5
+    "PAGE_SIZE": 5,
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
 }
 
