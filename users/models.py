@@ -23,5 +23,6 @@ class User(AbstractUser):
 
     address = models.OneToOneField(
         "adresses.Address",
+        null=True,
         on_delete=models.CASCADE,
     )
