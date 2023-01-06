@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import Book
+from .models import Book, Category
+
+from django.shortcuts import get_object_or_404
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,19 +19,36 @@ class BookPostUpdateSerializer(serializers.ModelSerializer):
     class Meta:
             model = Book
             fields = '__all__'
-    
+
     def create(self, validated_data):
-        return Book.objects.create(**validated_data)
+        categorys = validated_data.pop("categorys")
+        categorys_id = [get_object_or_404(Category, id=id) for id in categorys]
 
-    def update(self, instance: Book, validated_data: dict) -> Book:
+        created_book = Book.objects.create(**validated_data)
+
+        created_book.categorys.set(categorys_id)
+
+        return created_book
+
+    def update(self, instance, validated_data):
+        try:
+            categorys = validated_data.pop("categorys")
+            instance.categorys.set(categorys)
+        except KeyError:
+            pass
+        
         for key, value in validated_data.items():
-            setattr(instance, key, value)
-
+                setattr(instance, key, value)
         instance.save()
-
+        
         return instance
 
     def to_representation(self, instance):
         representation = super(BookPostUpdateSerializer, self).to_representation(instance)
         representation['picture_url'] = instance.picture_url.url
         return representation
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+            model = Category
+            fields = '__all__'

@@ -1,29 +1,27 @@
-from .models import User
-# from .serializers import UserSerializer
+from .models import Promotions
+from .serializers import PromotionSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
-# from .permissions import IsAccountOwnerOrSuperuser, IsSuperuser
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 
-class UserView(generics.ListCreateAPIView):
+class PromotionView(generics.ListCreateAPIView):
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [ IsSuperuser ]
+    
+    queryset = Promotions.objects.all()
 
-    queryset = User.objects.all()
+    serializer_class = PromotionSerializer
 
-    serializer_class = UserSerializer
-
-class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+class PromotionDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsAccountOwnerOrSuperuser]
+    permission_classes = [IsAuthenticated]
 
-    queryset = User.objects.all()
+    queryset = Promotions.objects.all()
 
-    serializer_class = UserSerializer
+    serializer_class = PromotionSerializer
 
 # primeiro fazer o serializer para usar as views
 # depois fazer as views
