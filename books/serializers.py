@@ -15,6 +15,7 @@ class BookSerializer(serializers.ModelSerializer):
         representation['picture_url'] = instance.picture_url.url
         return representation
 
+
 class BookPostUpdateSerializer(serializers.ModelSerializer):
     class Meta:
             model = Book

@@ -9,17 +9,14 @@ class Order(models.Model):
         (3, ("Completed")),
     ]
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    book = models.ManyToManyField("books.Book", related_name="orders")
+    book = models.ForeignKey("books.Book", on_delete=models.CASCADE, related_name="order")
+    # books = models.ManyToManyField("books.Book", related_name="order")
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
         related_name="orders",
     )
-    # purchased = models.ForeignKey(
-    #     "purchases.Purchase",
-    #     on_delete=models.CASCADE,
-    #     related_name="orders",
-    # )
-    # amount_price = models.DecimalField(decimal_places=2)
-    # amount = models.PositiveSmallIntegerField()
+    on_price = models.DecimalField(max_digits=99, decimal_places=2, default=0)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

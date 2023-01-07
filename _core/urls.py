@@ -19,10 +19,13 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerSplitVie
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
     path('api/', include("users.urls")),
     path('api/', include("authors.urls")),
     path('api/', include("adresses.urls")),
     path("api/", include("books.urls")),
+    path("api/", include("orders.urls")),
+
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/docs/",

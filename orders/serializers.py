@@ -1,29 +1,34 @@
 from rest_framework import serializers
 from .models import Order
 from books.models import Book
+import ipdb
+from django.shortcuts import get_object_or_404
 
 
-class OrderSerializer(serializers.ModelSerialzier):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = "__all__"
+        depth = 1
+        read_only_fields = [
+            "created_at",
+            "updated_at",
+        ]
 
     def create(self, validated_data):
+        # book = validated_data.pop("book_id")
         book_id = validated_data["book_id"]
-        book_obj = Book.objects.get(id, book_id)
+        book = get_object_or_404(Book, pk=book_id)
 
-        price = validated_data.pop("amount_price")
         order = Order.objects.create(**validated_data)
-
-        if book_obj.on_sale:
-            price = price * (1 - (book_obj.discount / 100))
-            order.amount_price.add(price)
+        # order.books.add(book)
+        if book.on_sale:
+            discont_price = book.price * (1 - (book.discount / 100))
+            order.on_price += discont_price
         else:
-            order.amount_price.add(price)
+            order.on_price += book.price
 
         return order
 
     def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            if key == "amount":
-                instance.amount = validated_data.get("amount", instance.amount)
+        books = validated_data.pop("books")
