@@ -41,10 +41,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular", 'cloudinary']
 
-
-
-PROJECT_APPS = ["users", "authors", "books", "adresses", "promotions"]
-
+PROJECT_APPS = ["users", "authors", "books", "adresses", "promotions", "orders"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
