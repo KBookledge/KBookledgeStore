@@ -17,10 +17,10 @@ class AuthorsDetailView(RetrieveUpdateDestroyAPIView):
 
     queryset = Author.objects.all()
 
-
 class AuthorsView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [Isowner_or_superuser, BasePermission]
     
     serializer_class = AuthorsSerializer
     queryset = Author.objects.all()
+
