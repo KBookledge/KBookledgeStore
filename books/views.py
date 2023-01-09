@@ -8,7 +8,9 @@ from .serializers import BookSerializer, BookPostUpdateSerializer, CategorySeria
 
 from .utils.mixins import SerializerByMethodMixin
 
+
 # Create your views here.
+
 class BookCreateView(SerializerByMethodMixin, generics.ListCreateAPIView):
     queryset = Book.objects.all()
 
@@ -23,6 +25,7 @@ class BookCreateView(SerializerByMethodMixin, generics.ListCreateAPIView):
     def perform_create(self, serializer):
         return serializer.save(categorys=self.request.data['categorys'])
 
+
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -36,12 +39,14 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+
 class CategoryCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
 
 class CategoryUpdateDeleteGetView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
