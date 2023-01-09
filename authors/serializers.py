@@ -19,6 +19,7 @@ class AuthorsSerializer(serializers.ModelSerializer):
         field = [
             'id',
             'name',
+            'bio',
             'created_at',
             'updated_at',
         ]

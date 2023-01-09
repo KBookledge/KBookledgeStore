@@ -7,25 +7,20 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from .serializers import AuthorsSerializer
 from .models import Author
 from books.models import Book
-from .permissions import IsSuperuser
+from .permissions import Isowner_or_superuser
 
 
-class AuthorsView(ListCreateAPIView, PageNumberPagination):
+class AuthorsDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsSuperuser, BasePermission]
+    permission_classes = [Isowner_or_superuser, BasePermission]
     serializer_class = AuthorsSerializer
 
-    def get_queryset(self):
-        book_id = self.kwargs['pk']
-        book_obj = get_object_or_404(Book, pk=book_id)
+    queryset = Author.objects.all()
 
-        authors = Author.objects.filter(book=book_obj)
 
-        return authors
-
-    def perform_create(self, serializer):
-        book_id = self.kwargs['pk']
-        book_obj = get_object_or_404(Book, pk=book_id)
-        self.check_object_permissions(self.request, book_obj)
-
-        serializer.save(book_id=book_obj.pk)
+class AuthorsView(ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [Isowner_or_superuser, BasePermission]
+    
+    serializer_class = AuthorsSerializer
+    queryset = Author.objects.all()
