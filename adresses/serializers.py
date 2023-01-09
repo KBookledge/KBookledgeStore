@@ -20,6 +20,7 @@ class AddressSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "complement": {"allow_null": True},
+            "state": {"allow_null": True},
             "number": {"allow_null": True},
         }
 
