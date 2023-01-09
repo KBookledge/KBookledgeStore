@@ -28,7 +28,7 @@ SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0"]
 
 
 
