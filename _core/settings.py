@@ -4,6 +4,9 @@ import dotenv
 from os import getenv
 from django.core.management.utils import get_random_secret_key
 
+import os
+import dj_database_url
+
 # cloudinary
 import cloudinary
 import cloudinary.uploader
@@ -25,7 +28,8 @@ SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0"]
+
 
 
 # Application definition
@@ -47,6 +51,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -85,10 +90,22 @@ DATABASES = {
         "NAME": getenv("POSTGRES_DB"),
         "USER": getenv("POSTGRES_USER"),
         "PASSWORD": getenv("POSTGRES_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": getenv("POSTGRES_PORT"),
+        "HOST": "127.0.0.1",
+        "PORT": 5432,
     }
 }
+
+DATABASE_URL = getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
+    DEBUG = False
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Password validation
@@ -150,9 +167,6 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 5,
-    "DEFAULT_PARSER_CLASSES": [
-        "rest_framework.parsers.JSONParser",
-    ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
 }
 
