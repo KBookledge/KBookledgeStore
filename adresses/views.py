@@ -1,20 +1,20 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.parsers import JSONParser
 from rest_framework.views import Response, status
 from rest_framework.permissions import BasePermission
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import Address
 from .serializers import AddressSerializer
 from users.models import User
-from .permissions import IsSuperuser
+from .permissions import Isowner_or_superuser
 import requests
+from rest_framework.permissions import IsAuthenticated
 
 
 class AddressView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [BasePermission, IsSuperuser]
+    permission_classes = [IsAuthenticated, Isowner_or_superuser]
     serializer_class = AddressSerializer
 
     def create(self, request, *args, **kwargs):
@@ -55,7 +55,7 @@ class AddressView(ListCreateAPIView):
 
 class AddressDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [BasePermission, IsSuperuser]
+    permission_classes = [IsAuthenticated, Isowner_or_superuser]
     serializer_class = AddressSerializer
 
     queryset = Address.objects.all()
