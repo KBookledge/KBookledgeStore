@@ -19,12 +19,16 @@ class OrderView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+    def get_queryset(self):
+        ipdb.set_trace()
+        return super().get_queryset()
+
     def get(self, request, *args, **kwargs):
         orders = Order.objects.filter(user=request.user)
-        serializer = OrderSerializer(orders)
-        r = serializer._args
+        serializer = OrderSerializer(orders, many=True)
         # ipdb.set_trace()
-        return Response(json(serializer))
+        # r = serializer._args
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         # ipdb.set_trace()
