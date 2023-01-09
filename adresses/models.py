@@ -6,9 +6,11 @@ class Address(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     country = models.CharField(
         max_length=64,
+        default='Brasil'
     )
     state = models.CharField(
         max_length=64,
+        null=True
     )
     city = models.CharField(
         max_length=64,
@@ -32,6 +34,7 @@ class Address(models.Model):
     )
     number = models.CharField(
         max_length=10,
+        default="S/N"
     )
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
