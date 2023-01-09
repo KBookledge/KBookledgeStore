@@ -30,9 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -93,8 +90,8 @@ DATABASES = {
         "NAME": getenv("POSTGRES_DB"),
         "USER": getenv("POSTGRES_USER"),
         "PASSWORD": getenv("POSTGRES_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": getenv("POSTGRES_PORT"),
+        "HOST": "127.0.0.1",
+        "PORT": 5432,
     }
 }
 
