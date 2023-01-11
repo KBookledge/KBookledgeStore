@@ -16,18 +16,18 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        # book = validated_data.pop("book_id")
         book_id = validated_data["book_id"]
         book = get_object_or_404(Book, pk=book_id)
 
         order = Order.objects.create(**validated_data)
-        # order.books.add(book)
+        
         if book.on_sale:
             discont_price = book.price * (1 - (book.discount / 100))
             order.on_price += discont_price
         else:
             order.on_price += book.price
-
+        order.save()
+        
         return order
 
     def update(self, instance, validated_data):
