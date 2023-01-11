@@ -218,53 +218,53 @@ token = "EE0479C3F7B24E3CAC530B2CF074BA2"
 #     ____________________________________________________________________________________
 
 # CRIAÇÂO DE COBRANÇA COM CARTÂO DE DEBITO !!! 3DS !!!
-url = "https://sandbox.api.pagseguro.com/charges"
+# url = "https://sandbox.api.pagseguro.com/charges"
 
-payload = json.dumps({
-    "reference_id": "ex-00001",
-    "description": "Motivo de pagamento",
-    "amount": {
-        "value": 1000,
-        "currency": "BRL"
-    },
-    "payment_method": {
-        "type": "DEBIT_CARD",
-        "card": {
-            "number": "4111111111111111",
-            "exp_month": "03",
-            "exp_year": "2026",
-            "security_code": "123",
-            "holder": {
-                "name": "Jose da Silva"
-            }
-        },
-        "authentication_method": {
-            "type": "THREEDS",
-            "cavv": "BwABBylVaQAAAAFwllVpAAAAAAA=",
-            "xid": "BwABBylVaQAAAAFwllVpAAAAAAA=",
-            "eci": "05",
-            "version": "2.1.0",
-            "dstrans_id": "DIR_SERVER_TID"
-        }
-    },
-    "notification_urls": [
-        "https://yourserver.com/nas_ecommerce/277be731-3b7c-4dac-8c4e-4c3f4a1fdc46/"
-    ],
-    "metadata": {
-        "Exemplo": "Aceita qualquer informação",
-        "NotaFiscal": "123",
-        "idComprador": "123456"
-    }
-})
-headers = {
-    'Authorization': 'afc90184-87f6-41c0-9a58-f15403a5d466b365f70c4196bbf5f7974c1c637d20f1cf22-08f6-4e18-849d-c5090514ff7c',
-    'Content-Type': 'application/json',
-    'x-idempotency-key': '',
-    'x-api-version': '4.0'
-}
+# payload = json.dumps({
+#     "reference_id": "ex-00001",
+#     "description": "Motivo de pagamento",
+#     "amount": {
+#         "value": 1000,
+#         "currency": "BRL"
+#     },
+#     "payment_method": {
+#         "type": "DEBIT_CARD",
+#         "card": {
+#             "number": "4111111111111111",
+#             "exp_month": "03",
+#             "exp_year": "2026",
+#             "security_code": "123",
+#             "holder": {
+#                 "name": "Jose da Silva"
+#             }
+#         },
+#         "authentication_method": {
+#             "type": "THREEDS",
+#             "cavv": "BwABBylVaQAAAAFwllVpAAAAAAA=",
+#             "xid": "BwABBylVaQAAAAFwllVpAAAAAAA=",
+#             "eci": "05",
+#             "version": "2.1.0",
+#             "dstrans_id": "DIR_SERVER_TID"
+#         }
+#     },
+#     "notification_urls": [
+#         "https://yourserver.com/nas_ecommerce/277be731-3b7c-4dac-8c4e-4c3f4a1fdc46/"
+#     ],
+#     "metadata": {
+#         "Exemplo": "Aceita qualquer informação",
+#         "NotaFiscal": "123",
+#         "idComprador": "123456"
+#     }
+# })
+# headers = {
+#     'Authorization': 'afc90184-87f6-41c0-9a58-f15403a5d466b365f70c4196bbf5f7974c1c637d20f1cf22-08f6-4e18-849d-c5090514ff7c',
+#     'Content-Type': 'application/json',
+#     'x-idempotency-key': '',
+#     'x-api-version': '4.0'
+# }
 
-response = requests.request("POST", url, headers=headers, data=payload)
-print(response.text)
+# response = requests.request("POST", url, headers=headers, data=payload)
+# print(response.text)
 #     ____________________________________________________________________________________
 
 
@@ -285,15 +285,15 @@ print(response.text)
 
 
 #                       BUSCANDO UM COBRANÇA 
-url = "https://sandbox.api.pagseguro.com/charges?reference_id=EE0479C3F7B24E3CAC530B2CF074BA2"
+# url = "https://sandbox.api.pagseguro.com/charges?reference_id=EE0479C3F7B24E3CAC530B2CF074BA2"
 
-payload = {}
-headers = {
-    'Authorization': 'afc90184-87f6-41c0-9a58-f15403a5d466b365f70c4196bbf5f7974c1c637d20f1cf22-08f6-4e18-849d-c5090514ff7c',
-    'Content-Type': 'application/json',
-    'x-api-version': '4.0'
-}
+# payload = {}
+# headers = {
+#     'Authorization': 'afc90184-87f6-41c0-9a58-f15403a5d466b365f70c4196bbf5f7974c1c637d20f1cf22-08f6-4e18-849d-c5090514ff7c',
+#     'Content-Type': 'application/json',
+#     'x-api-version': '4.0'
+# }
 
-response = requests.request("GET", url, headers=headers, data=payload)
-# ipdb.set_trace()
-print(response.text)
+# response = requests.request("GET", url, headers=headers, data=payload)
+# # ipdb.set_trace()
+# print(response.text)

@@ -24,7 +24,7 @@ class Book(models.Model):
     picture_url = CloudinaryField('imagem')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    categorys = models.ManyToManyField("books.Category", related_name="books", blank=True)
+    categorys = models.ManyToManyField("books.Category", related_name="books")
 
 class Category(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)

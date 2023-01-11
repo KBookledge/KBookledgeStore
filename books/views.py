@@ -25,13 +25,6 @@ class BookCreateView(SerializerByMethodMixin, generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsSuperuser]
 
-    # def perform_create(self, serializer):
-    #     try:
-    #         return serializer.save(categorys=self.request.data['categorys'])
-    #     except:
-    #         return serializer.save()
-
-
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -45,18 +38,7 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsSuperuser]
 
-class BookCategoryUpdate(generics.UpdateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookPostUpdateSerializer
-
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsSuperuser]
-
-    def perform_create(self, serializer):
-        return serializer.save(categorys=self.request.data['categorys'])
-
-
-class CategoryCreateView(generics.UpdateAPIView):
+class CategoryCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
