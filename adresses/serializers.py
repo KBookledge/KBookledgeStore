@@ -2,6 +2,8 @@ from rest_framework import serializers
 from rest_framework.parsers import JSONParser
 from django.shortcuts import get_object_or_404
 from .models import Address
+from users.models import User
+import requests
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -15,12 +17,10 @@ class AddressSerializer(serializers.ModelSerializer):
         read_only_fields = [
             "created_at",
             "updated_at",
-            
         ]
         extra_kwargs = {
             "complement": {"allow_null": True},
             "state": {"allow_null": True},
-            "uf": {"allow_null": True},
             "number": {"allow_null": True},
         }
 
