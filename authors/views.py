@@ -7,20 +7,20 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from .serializers import AuthorsSerializer
 from .models import Author
 from books.models import Book
-from .permissions import IsSuperuser
+from .permissions import Isowner_or_superuser
 
 
 class AuthorsDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsSuperuser, BasePermission]
+    permission_classes = [Isowner_or_superuser, BasePermission]
     serializer_class = AuthorsSerializer
 
     queryset = Author.objects.all()
 
 class AuthorsView(ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [Isowner_or_superuser, BasePermission]
+    
     serializer_class = AuthorsSerializer
     queryset = Author.objects.all()
-
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsSuperuser, BasePermission]
 
