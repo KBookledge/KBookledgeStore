@@ -28,11 +28,11 @@ SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0", "localhost"]
 
 
-
-# Application definition
+#  Application definition
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -41,6 +41,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'cpf_field',
 ]
 
 THIRD_PARTY_APPS = [
@@ -56,6 +57,8 @@ PROJECT_APPS = [
     "adresses",
     "promotions",
     "orders",
+    "paymounts",
+    "billets"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
