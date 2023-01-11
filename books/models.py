@@ -17,13 +17,14 @@ class Book(models.Model):
     author = models.ForeignKey(
         "authors.Author", on_delete=models.CASCADE, related_name="books"
     )
+    pdf_book = models.FileField(max_length=30)
     discount = models.IntegerField(null=True)
     on_sale = models.BooleanField(default=False)
     sales = models.IntegerField(default=0)
     picture_url = CloudinaryField('imagem')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    categorys = models.ManyToManyField("books.Category", related_name="books")
+    categorys = models.ManyToManyField("books.Category", related_name="books", blank=True)
 
 class Category(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)

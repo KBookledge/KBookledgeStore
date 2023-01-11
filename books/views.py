@@ -8,6 +8,9 @@ from .serializers import BookSerializer, BookPostUpdateSerializer, CategorySeria
 
 from .utils.mixins import SerializerByMethodMixin
 
+from .permissions import IsSuperuser
+from rest_framework.permissions import BasePermission
+
 
 # Create your views here.
 
@@ -20,10 +23,13 @@ class BookCreateView(SerializerByMethodMixin, generics.ListCreateAPIView):
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
 
-    def perform_create(self, serializer):
-        return serializer.save(categorys=self.request.data['categorys'])
+    # def perform_create(self, serializer):
+    #     try:
+    #         return serializer.save(categorys=self.request.data['categorys'])
+    #     except:
+    #         return serializer.save()
 
 
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -37,15 +43,25 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
+
+class BookCategoryUpdate(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookPostUpdateSerializer
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSuperuser]
+
+    def perform_create(self, serializer):
+        return serializer.save(categorys=self.request.data['categorys'])
 
 
-class CategoryCreateView(generics.ListCreateAPIView):
+class CategoryCreateView(generics.UpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
 
 
 class CategoryUpdateDeleteGetView(generics.RetrieveUpdateDestroyAPIView):
@@ -53,5 +69,5 @@ class CategoryUpdateDeleteGetView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
 
