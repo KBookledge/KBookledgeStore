@@ -1,14 +1,17 @@
 from rest_framework import serializers
-from .models import Paymount
-import ipdb
+from django.shortcuts import get_object_or_404
+from datetime import datetime, timedelta
+
+from adresses.models import Address
 from orders.models import Order
+from users.models import User
+from .models import Paymount
+
 import requests
 import json
-from datetime import datetime, timedelta
-from adresses.models import Address
-from django.shortcuts import get_object_or_404
 import ast
-from users.models import User
+
+import ipdb
 
 
 class PaymountsSerializer(serializers.ModelSerializer):
@@ -30,10 +33,7 @@ class PaymountsSerializer(serializers.ModelSerializer):
         orders = Order.objects.filter(user=validated_data["reference"])
         address = get_object_or_404(Address, pk=validated_data["reference"].address_id)
         user = get_object_or_404(User, pk=validated_data["reference"].id)
-        # validated_data["status"] = "d"
-        # validated_data["description"] = "3"
-        # ipdb.set_trace()
-      
+
         # if not address:
         #     raise HTTPException()
 
@@ -93,7 +93,6 @@ class PaymountsSerializer(serializers.ModelSerializer):
         validated_data["description"] = paymount_data["description"]
         validated_data["created_at"] = paymount_data["created_at"]
 
-        # ipdb.set_trace()
         paymount = Paymount.objects.create(**validated_data)
 
         return paymount

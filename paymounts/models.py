@@ -7,7 +7,7 @@ class Paymount(models.Model):
     reference = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
-        related_name="purchases",
+        related_name="paymounts",
     )
 
     description = models.TextField(max_length=64, null=True)
