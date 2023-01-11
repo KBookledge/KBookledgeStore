@@ -28,7 +28,8 @@ SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0"]
+
+ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0", "localhost"]
 
 
 #  Application definition
@@ -192,3 +193,14 @@ cloudinary.config(
     api_key=getenv("api_key"),
     api_secret=getenv("api_secret"),
 )
+
+AWS_ACCESS_KEY_ID = getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = getenv("AWS_S3_REGION_NAME")
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = "public-read"
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

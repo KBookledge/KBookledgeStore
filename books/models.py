@@ -17,6 +17,7 @@ class Book(models.Model):
     author = models.ForeignKey(
         "authors.Author", on_delete=models.CASCADE, related_name="books"
     )
+    pdf_book = models.FileField(max_length=30)
     discount = models.IntegerField(null=True)
     on_sale = models.BooleanField(default=False)
     sales = models.IntegerField(default=0)
