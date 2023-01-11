@@ -26,7 +26,7 @@ def createAppication():
 
 
 # createAppication()
-# ________________________________________________________________________________________    
+# ________________________________________________________________________________________
 # RESPONSE -> {
 #   "name":"KBookLedgeStore",
 #   "description":"É uma plataforma de venda de EBooks",
@@ -37,8 +37,7 @@ def createAppication():
 #   "account_id":"ACCO_95F26B16-21AC-4B22-952A-7A73FC88BE3E",
 #   "client_type":"confidential"
 # }
-# ________________________________________________________________________________________    
-
+# ________________________________________________________________________________________
 
 def listApplication():
     url = "https://api.pagseguro.com/oauth2/application/22a9d249-c95f-477a-b164-7cae57c46f72"
