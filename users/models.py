@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from cpf_field.models import CPFField    
 import uuid
 
 
@@ -21,9 +22,19 @@ class User(AbstractUser):
         unique=True,
     )
 
+    first_name = models.CharField(
+        max_length=20
+    )
+
+    last_name = models.CharField(
+        max_length=30
+    )
+
+    cpf = CPFField('cpf', max_length=11)
+
     address = models.OneToOneField(
         "adresses.Address",
         null=True,
         on_delete=models.CASCADE,
         related_name='user'
-    )
+    )    
