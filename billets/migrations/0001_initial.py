@@ -9,20 +9,20 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('books', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Promotions',
+            name='Billet',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=64)),
-                ('starts_at', models.DateTimeField()),
-                ('ends_at', models.DateTimeField()),
+                ('barcode', models.CharField(max_length=48)),
+                ('value', models.PositiveSmallIntegerField()),
+                ('formatted_barcode', models.CharField(max_length=56)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('book', models.ManyToManyField(related_name='promotion', to='books.book')),
+                ('due_date', models.DateTimeField()),
+                ('link_pdf', models.TextField()),
+                ('link_png', models.TextField()),
             ],
         ),
     ]
