@@ -10,18 +10,28 @@ token = "EE0479C3F7B24E3CAC530B2CF074BA2"
 #                    Criando aplicação para poder criar ações em nome do usuário
 # url = "https://sandbox.api.pagseguro.com/oauth2/application"
 
-# payload = json.dumps({
-#     "name": "KBookLedgeStore",
-#     "redirect_uri": "https://web-production-544c.up.railway.app/api/"
-# })
+# payload = json.dumps(
+#     {
+#         "name": "KBookLedgeStore",
+#         "redirect_uri": "https://web-production-544c.up.railway.app/api/",
+#     }
+# )
 # headers = {
-#     'Authorization': 'Bearer EE0479C3F7B24E3CAC530B2CF074BA25',
-#     'Content-Type': 'application/json'
+#     "Authorization": "Bearer EE0479C3F7B24E3CAC530B2CF074BA25",
+#     "Content-Type": "application/json",
 # }
 
 # response = requests.request("POST", url, headers=headers, data=payload)
 
 # print(response.text)
+# {
+#     "name": "KBookLedgeStore",
+#     "client_id": "d55f7217-3e47-4046-9d46-29c67070dec2",
+#     "client_secret": "0d9d774b-9844-4f47-957b-3e54ed576de3",
+#     "redirect_uri": "https://web-production-544c.up.railway.app/api/",
+#     "account_id": "ACCO_0C997684-8700-4A53-9247-1F4716FDD0AD",
+#     "client_type": "confidential",
+# }
 
 #     ____________________________________________________________________________________
 
@@ -42,22 +52,22 @@ token = "EE0479C3F7B24E3CAC530B2CF074BA2"
 
 
 #                                Solicitar autorização via SMS
-# url = "https://sandbox.api.pagseguro.com/oauth2/authorize/sms"
-# url = "https://api.pagseguro.com/oauth2/authorize/sms"
+url = "https://sandbox.api.pagseguro.com/oauth2/authorize/sms"
+url = "https://api.pagseguro.com/oauth2/authorize/sms"
 
-# payload = json.dumps({
-#     "email": "mmiguel.skn@gmail.com",
-# })
-# headers = {
-#     'Authorization': 'Bearer 17a8c0a2-70aa-456a-a480-63e5ecb7e220f1309f1d4cdebec08e738a617027e0f7e85c-2875-4da6-905c-369650a68d71',
-#     'Content-Type': 'application/json',
-#     'X_CLIENT_ID': '22a9d249-c95f-477a-b164-7cae57c46f72',
-#     'X_CLIENT_SECRET': 'f972b704-28d5-439d-816f-0d00cf777222'
-# }
+payload = json.dumps({
+    "email": "bookledge@sandbox.pagseguro.com.br",
+})
+headers = {
+    'Authorization': 'Bearer EE0479C3F7B24E3CAC530B2CF074BA25',
+    'Content-Type': 'application/json',
+    'X_CLIENT_ID': '22a9d249-c95f-477a-b164-7cae57c46f72',
+    'X_CLIENT_SECRET': 'f972b704-28d5-439d-816f-0d00cf777222'
+}
 
-# response = requests.request("POST", url, headers=headers, data=payload)
+response = requests.request("POST", url, headers=headers, data=payload)
 
-# print(response.text)
+print(response.text)
 
 
 #     ____________________________________________________________________________________
@@ -79,23 +89,23 @@ token = "EE0479C3F7B24E3CAC530B2CF074BA2"
 
 #                         Confirmar autorização SMS
 # url = "https://sandbox.api.pagseguro.com/oauth2/token"
-url = "https://api.pagseguro.com/oauth2/token"
+# url = "https://api.pagseguro.com/oauth2/token"
 
-payload = json.dumps({
-    "grant_type": "sms",
-    "email": "mmiguel.skn@gmail.com",
-    "sms_code": "536202"
-})
-headers = {
-    'Authorization': 'Bearer 17a8c0a2-70aa-456a-a480-63e5ecb7e220f1309f1d4cdebec08e738a617027e0f7e85c-2875-4da6-905c-369650a68d71',
-    'Content-Type': 'application/json',
-    'X_CLIENT_ID': '22a9d249-c95f-477a-b164-7cae57c46f72',
-    'X_CLIENT_SECRET': 'f972b704-28d5-439d-816f-0d00cf777222'
-}
+# payload = json.dumps({
+#     "grant_type": "sms",
+#     "email": "mmiguel.skn@gmail.com",
+#     "sms_code": "536202"
+# })
+# headers = {
+#     'Authorization': 'Bearer 17a8c0a2-70aa-456a-a480-63e5ecb7e220f1309f1d4cdebec08e738a617027e0f7e85c-2875-4da6-905c-369650a68d71',
+#     'Content-Type': 'application/json',
+#     'X_CLIENT_ID': '22a9d249-c95f-477a-b164-7cae57c46f72',
+#     'X_CLIENT_SECRET': 'f972b704-28d5-439d-816f-0d00cf777222'
+# }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+# response = requests.request("POST", url, headers=headers, data=payload)
 
-print(response.text)
+# print(response.text)
 # {
 #     "access_token": "3c046f22-0f22-497e-89a6-25deb87a8ebd97ccb1804161a6ec410634593c898a976c6f-cc40-4a7f-be4a-fb17d4cedf9f",
 #     "token_type": "Bearer",
@@ -115,10 +125,10 @@ print(response.text)
 #     "refresh_token": "1fb79dfc-5db5-46af-bfde-f2cca34755c769af6a984504b16976a6c548ef7e18e7b812-ddcd-4f35-95d0-5d5d5262833f"
 # })
 # headers = {
-#     'Authorization': 'Bearer EE0479C3F7B24E3CAC530B2CF074BA25',
+#     'Authorization': 'Bearer 17a8c0a2-70aa-456a-a480-63e5ecb7e220f1309f1d4cdebec08e738a617027e0f7e85c-2875-4da6-905c-369650a68d71',
 #     'Content-Type': 'application/json',
-#     'X_CLIENT_ID': '95419fe2-592e-4af5-81e6-e639b209a22e',
-#     'X_CLIENT_SECRET': '9081263e-74c5-4cdc-b117-c5fe40f0786b'
+#     'X_CLIENT_ID': '22a9d249-c95f-477a-b164-7cae57c46f72',
+#     'X_CLIENT_SECRET': 'f972b704-28d5-439d-816f-0d00cf777222'
 # }
 
 # response = requests.request("POST", url, headers=headers, data=payload)

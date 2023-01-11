@@ -6,6 +6,7 @@ from adresses.models import Address
 from orders.models import Order
 from users.models import User
 from .models import Paymount
+from billets.models import Billet
 
 import requests
 import json
@@ -25,6 +26,9 @@ class PaymountsSerializer(serializers.ModelSerializer):
             "value",
             "payment_method",
             "created_at",
+            "link_billet_pdf",
+            "link_billet_png",
+            "billet"
         ]
 
     def create(self, validated_data):
@@ -92,6 +96,22 @@ class PaymountsSerializer(serializers.ModelSerializer):
         validated_data["payment_method"] = paymount_data["payment_method"]["type"]
         validated_data["description"] = paymount_data["description"]
         validated_data["created_at"] = paymount_data["created_at"]
+        validated_data["link_billet_pdf"] = paymount_data["links"][0]["href"]
+        validated_data["link_billet_png"] = paymount_data["links"][1]["href"]
+
+        # building billet arguments
+        billet_data = {
+            "owner": user,
+            "barcode": paymount_data["payment_method"]["boleto"]["barcode"],
+            "value": paymount_data["amount"]["value"],
+            "formatted_barcode": paymount_data["payment_method"]["boleto"]["formatted_barcode"],
+            "due_date": paymount_data["payment_method"]["boleto"]["due_date"],
+            "link_pdf": paymount_data["links"][0]["href"],
+            "link_png": paymount_data["links"][1]["href"]
+        }
+        billet = Billet.objects.create(**billet_data)
+        validated_data["billet"] = billet
+        # ipdb.set_trace()
 
         paymount = Paymount.objects.create(**validated_data)
 
