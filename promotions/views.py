@@ -1,5 +1,5 @@
 from .models import Promotions
-from .serializers import PromotionSerializer
+from .serializers import PromotionsSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -12,7 +12,7 @@ class PromotionView(generics.ListCreateAPIView):
     
     queryset = Promotions.objects.all()
 
-    serializer_class = PromotionSerializer
+    serializer_class = PromotionsSerializer
 
 class PromotionDetailView(generics.RetrieveUpdateDestroyAPIView):
 
@@ -21,7 +21,7 @@ class PromotionDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Promotions.objects.all()
 
-    serializer_class = PromotionSerializer
+    serializer_class = PromotionsSerializer
 
 # primeiro fazer o serializer para usar as views
 # depois fazer as views
