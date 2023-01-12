@@ -1,14 +1,10 @@
 from billets.models import Billet
 from datetime import datetime, timedelta
-from django.shortcuts import get_object_or_404
-
-from adresses.models import Address
-from orders.models import Order
-from users.models import User
 
 import requests
 import json
 import ast
+import ipdb
 
 
 class BilletMethod():
@@ -22,7 +18,7 @@ class BilletMethod():
         payload = json.dumps(
             {
                 "reference_id": str(validated_data["reference"].id),
-                # "description": f'{validated_data["description"]}',
+                # "description": validated_data["description"],
                 "amount": {
                     "value": int(sum([order.on_price for order in orders]) * 100),
                     "currency": "BRL",
@@ -68,6 +64,7 @@ class BilletMethod():
         response = requests.request("POST", url, headers=headers, data=payload)
         paymount_data = ast.literal_eval(response.text)
 
+        validated_data.pop("data")
         validated_data["reference"] = user
         validated_data["status"] = paymount_data["status"]
         validated_data["value"] = paymount_data["amount"]["value"]
@@ -89,5 +86,5 @@ class BilletMethod():
         }
         billet = Billet.objects.create(**billet_data)
         validated_data["billet"] = billet
-        # ipdb.set_trace()
+
         return validated_data
