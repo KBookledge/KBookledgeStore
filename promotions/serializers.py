@@ -1,24 +1,35 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from .models import Promotion
+from .models import Promotions
+
+import ipdb
 
 class PromotionsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Promotion
+        model = Promotions
         fields = ["id", "name", "starts_at", "ends_at", "updated_at", "book"]
         read_only_fields = ["created_at"]
         extra_kwargs = {
-            'validators': [UniqueValidator(queryset=Promotion.objects.all())] 
+            'validators': [UniqueValidator(queryset=Promotions.objects.all())] 
         }
         
         
 
-    def create(self, validated_data: dict) -> Promotion:
+    def create(self, validated_data: dict) -> Promotions:
 
-        return Promotion.objects.create_promotion(**validated_data)
+        books = validated_data.pop("book")
 
-    def update(self, instance: Promotion, validated_data: dict ) -> Promotion:
+        promotions = Promotions.objects.create(**validated_data)
+
+        promotions.book.set(books)
+
+        return promotions
+
+    def update(self, instance: Promotions, validated_data: dict ) -> Promotions:
+
+        books = validated_data.pop("book")
+        instance.book.set(books)
         
         for key, value in validated_data.items():
             setattr( instance, key, value )

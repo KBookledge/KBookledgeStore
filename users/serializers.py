@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from .models import User
-
+from rest_framework.response import Response
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,15 +9,21 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "username",
+            "first_name",
+            "last_name",
             "email",
             "password",
             "is_superuser",
             "registered_at",
             "updated_at",
+            "cpf"
         ]
         read_only_fields = ["registered_at", "updated_at"]
         extra_kwargs = {
             "password": {"write_only": True},
+            "cpf": {
+                "write_only": True
+            },
             "email": {
                 "write_only": True,
                 "validators": [UniqueValidator(queryset=User.objects.all())],
@@ -25,6 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data: dict) -> User:
+
+        print( type( validated_data["cpf"] ) )
 
         if "is_superuser" in validated_data and validated_data["is_superuser"]:
             return User.objects.create_superuser(**validated_data)
