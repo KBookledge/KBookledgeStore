@@ -29,7 +29,11 @@ SECRET_KEY = getenv("SECRET_KEY", get_random_secret_key())
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["web-production-544c.up.railway.app", "0.0.0.0", "localhost"]
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 #  Application definition
