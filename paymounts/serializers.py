@@ -7,6 +7,7 @@ from users.models import User
 
 from .models import Paymount
 from .paymount_methods.billet_method import BilletMethod
+from .paymount_methods.card_method import CardMethod
 import ipdb
 
 
@@ -35,8 +36,11 @@ class PaymountsSerializer(serializers.ModelSerializer):
 
         # if not address:
         #     raise HTTPException()
-
-        BilletMethod.billet(validated_data, url, user, address, orders)
+        # ipdb.set_trace()
+        if validated_data["data"]["payment_method"] == "BOLETO":
+            BilletMethod.billet(validated_data, url, user, address, orders)
+        else:
+            CardMethod.card(validated_data, url, user, orders)
 
         paymount = Paymount.objects.create(**validated_data)
 
