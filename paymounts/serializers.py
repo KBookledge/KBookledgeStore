@@ -30,7 +30,7 @@ class PaymountsSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         url = "https://sandbox.api.pagseguro.com/charges"
 
-        orders = Order.objects.filter(user=validated_data["reference"])
+        orders = Order.objects.filter(user=validated_data["reference"], status=1)
         address = get_object_or_404(Address, pk=validated_data["reference"].address_id)
         user = get_object_or_404(User, pk=validated_data["reference"].id)
 

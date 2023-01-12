@@ -60,6 +60,10 @@ class CardMethod:
         e = response.text
         paymount_data = json.loads(response.text)
 
+        for order in orders:
+            order.status = 3
+            order.save()
+
         validated_data.pop("data")
         validated_data["reference"] = user
         validated_data["status"] = paymount_data["status"]
