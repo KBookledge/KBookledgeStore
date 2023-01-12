@@ -9,6 +9,7 @@ from users.models import User
 import requests
 import json
 import ast
+import ipdb
 
 
 class BilletMethod():
@@ -77,6 +78,10 @@ class BilletMethod():
         validated_data["link_billet_pdf"] = paymount_data["links"][0]["href"]
         validated_data["link_billet_png"] = paymount_data["links"][1]["href"]
 
+        for order in orders:
+            order.status = 2
+            order.save()
+
         # building billet arguments
         billet_data = {
             "owner": user,
@@ -89,5 +94,4 @@ class BilletMethod():
         }
         billet = Billet.objects.create(**billet_data)
         validated_data["billet"] = billet
-        # ipdb.set_trace()
         return validated_data

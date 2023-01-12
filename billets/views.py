@@ -35,5 +35,4 @@ class BilletIdView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.kwargs["pk"]
-        # ipdb.set_trace()
         user = get_list_or_404(Billet, owner=user)
