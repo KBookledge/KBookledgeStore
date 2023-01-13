@@ -8,6 +8,9 @@ from .serializers import BookSerializer, BookPostUpdateSerializer, CategorySeria
 
 from .utils.mixins import SerializerByMethodMixin
 
+from .permissions import IsSuperuser
+from rest_framework.permissions import BasePermission
+
 
 # Create your views here.
 
@@ -20,11 +23,7 @@ class BookCreateView(SerializerByMethodMixin, generics.ListCreateAPIView):
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        return serializer.save(categorys=self.request.data['categorys'])
-
+    permission_classes = [IsSuperuser]
 
 class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
@@ -37,15 +36,14 @@ class BookUpdateDeleteGetView(SerializerByMethodMixin, generics.RetrieveUpdateDe
     }
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
+    permission_classes = [IsSuperuser]
 
 class CategoryCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
 
 
 class CategoryUpdateDeleteGetView(generics.RetrieveUpdateDestroyAPIView):
@@ -53,5 +51,5 @@ class CategoryUpdateDeleteGetView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperuser]
 

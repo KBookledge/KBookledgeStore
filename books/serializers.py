@@ -2,8 +2,6 @@ from rest_framework import serializers
 
 from .models import Book, Category
 
-from django.shortcuts import get_object_or_404
-
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
             model = Book
@@ -23,12 +21,9 @@ class BookPostUpdateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         categorys = validated_data.pop("categorys")
-        categorys_id = [get_object_or_404(Category, id=id) for id in categorys]
 
         created_book = Book.objects.create(**validated_data)
-
-        created_book.categorys.set(categorys_id)
-
+        created_book.categorys.set(categorys)
         return created_book
 
     def update(self, instance, validated_data):

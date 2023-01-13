@@ -321,7 +321,6 @@ print(response.text)
 #     ____________________________________________________________________________________
 
 
-#                       BUSCANDO UM COBRANÇA
 # url = "https://sandbox.api.pagseguro.com/charges?reference_id=EE0479C3F7B24E3CAC530B2CF074BA2"
 
 # payload = {}
