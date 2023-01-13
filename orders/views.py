@@ -22,7 +22,7 @@ class OrderView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         orders = Order.objects.filter(user=request.user)
         serializer = OrderSerializer(orders, many=True)
-  
+
         return Response(serializer.data)
 
     def perform_create(self, serializer):

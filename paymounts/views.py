@@ -25,7 +25,8 @@ class PaymountsView(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
-        serializer.save(reference=self.request.user)
+
+        serializer.save(reference=self.request.user, data=self.request.data)
 
 
 class PaymountsIdView(generics.ListAPIView):
